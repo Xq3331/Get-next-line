@@ -6,7 +6,7 @@
 /*   By: pfaria-d <pfaria-d@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 08:42:00 by pfaria-d          #+#    #+#             */
-/*   Updated: 2022/11/18 18:38:44 by pfaria-d         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:10:44 by pfaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_substr2(const char *s, unsigned int start, size_t len)
 		((char *)s2)[i] = s[start + i];
 		i++;
 	}
-	freee((char *)s);
+	free((char *)s);
 	((char *)s2)[i] = 0;
 	return ((char *)s2);
 }
@@ -47,6 +47,7 @@ char	*line_reader(int fd, char *line)
 	b = read(fd, buff, BUFFER_SIZE);
 	if (b == 0 && ft_strlen(line) == 0)
 	{
+		freee(line);
 		freee(buff);
 		return (0);
 	}
@@ -58,7 +59,8 @@ char	*line_reader(int fd, char *line)
 		buff[b] = '\0';
 		line = ft_strjoin(line, buff);
 	}
-	freee(buff);
+	if (ft_strchr(line, '\n') == 0)
+		free(buff);
 	return (line);
 }
 
@@ -85,9 +87,6 @@ char	*get_next_line(int fd)
 	if (line == 0)
 		return (0);
 	diff = ft_strlen(line) - ft_strlen(ft_strchr(line, '\n'));
-	buff = malloc ((diff * sizeof(char)));
-	if (!buff)
-		return (0);
 	buff = ft_substr2(line, 0, diff + 1);
 	line = line_parser(line, diff);
 	return (buff);

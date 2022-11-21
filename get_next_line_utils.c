@@ -6,7 +6,7 @@
 /*   By: pfaria-d <pfaria-d@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 08:42:03 by pfaria-d          #+#    #+#             */
-/*   Updated: 2022/11/18 18:37:00 by pfaria-d         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:10:42 by pfaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		((char *)s3)[x++] = s2[i];
 	((char *)s3)[x] = '\0';
 	freee((char *)s1);
+	if (!(ft_strchr(s3, '\n') == 0))
+		freee((char *)s2);
 	return ((char *)s3);
 }
 
